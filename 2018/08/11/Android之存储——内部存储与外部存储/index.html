@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="内部存储,外部存储," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="存储方式如下  :">
+<meta name="keywords" content="内部存储,外部存储">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android存储之 内部存储与外部存储">
+<meta property="og:url" content="http://yoursite.com/2018/08/11/Android之存储——内部存储与外部存储/index.html">
+<meta property="og:site_name" content="SchafferWang&#39;s blogs">
+<meta property="og:description" content="存储方式如下  :">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/C9ggy4K.jpg">
+<meta property="og:updated_time" content="2018-08-11T04:37:02.101Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android存储之 内部存储与外部存储">
+<meta name="twitter:description" content="存储方式如下  :">
+<meta name="twitter:image" content="https://i.imgur.com/C9ggy4K.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/11/Android之存储——内部存储与外部存储/"/>
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+  <title>Android存储之 内部存储与外部存储 | SchafferWang's blogs</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SchafferWang's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Writed by SchafferWang</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/../../../../Preview.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/11/Android之存储——内部存储与外部存储/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SchafferWang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.imgur.com/hwLvP2j.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SchafferWang's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android存储之 内部存储与外部存储</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-11T12:37:02+08:00">
+                2018-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android-总结/" itemprop="url" rel="index">
+                    <span itemprop="name">android 总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>存储方式如下  :<br><img src="https://i.imgur.com/C9ggy4K.jpg" alt="存储方式"></p>
+<a id="more"></a>
+<hr>
+<h2 id="内部存储"><a href="#内部存储" class="headerlink" title="内部存储"></a>内部存储</h2><h3 id="内部存储描述-amp-注意事项"><a href="#内部存储描述-amp-注意事项" class="headerlink" title=" 内部存储描述&amp;注意事项 "></a><font color="red"> 内部存储描述&amp;注意事项 </font></h3><ul>
+<li>内部存储是只有当前应用可以访问到的存储方式,SP有能被外部访问的模式;</li>
+<li>应用卸载后内部存储内容都将被删除;</li>
+<li>包括<code>sharedPreferences</code>,<code>SQLite</code>;</li>
+</ul>
+<h3 id="内部存储的路径"><a href="#内部存储的路径" class="headerlink" title=" 内部存储的路径 "></a><font color="red"> 内部存储的路径 </font></h3><pre><code>- /data/app:                             存放着所有安装的app的apk文件
+
+- /data/data/包名/shared_prefs                 APP的SP信息
+- /data/data/包名/databases                     APP的数据库信息
+- /data/data/包名/files                        APP的文件信息
+- /data/data/包名/cache                         APP的缓存信息
+</code></pre><p>注意: 没有root的手机不能打开内部存储的文件夹;</p>
+<h3 id="内部存储使用方式"><a href="#内部存储使用方式" class="headerlink" title=" 内部存储使用方式 "></a><font color="red"> 内部存储使用方式 </font></h3><pre><code>内部存储的文件存储位置:    context.getFileDir();
+内部存储的缓存存储位置:    context.getCacheDir();
+</code></pre><hr>
+<h2 id="外部存储"><a href="#外部存储" class="headerlink" title="外部存储"></a>外部存储</h2><p>总结概要:</p>
+<ol>
+<li>内部存储和外部存储都存在路径让其他应用读取;</li>
+<li>外部存储文件存储都是要精确到文件夹的;</li>
+<li>外部存储存储在外部sdCard中,使用上下文得到的是私有的,也是常清理的位置;</li>
+</ol>
+<font color="blue"><br><strong>外部存储包括私有目录和公有目录.<br>私有目录有包名存在.<br>公有目录使用<code>Environment</code>获取</strong></font>
+
+<p>外部存储存储权限如下: </p>
+<pre><code>&lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;/&gt;
+&lt;uses-permission android:name=&quot;android.permission.READ_EXTERNAL_STORAGE&quot;/&gt;
+</code></pre><hr>
+<h3 id="外部存储存储路径和使用方式"><a href="#外部存储存储路径和使用方式" class="headerlink" title=" 外部存储存储路径和使用方式 "></a><font color="red"> 外部存储存储路径和使用方式 </font></h3><ul>
+<li><p>公有目录</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Environment.getRootDirectory()</span><br><span class="line">		-&gt;	/system</span><br><span class="line">		<span class="comment">//	Android的根目录</span></span><br><span class="line"></span><br><span class="line">Environment.getDataDirectory()</span><br><span class="line">		-&gt;	/data	</span><br><span class="line">		<span class="comment">//	用户数据目录</span></span><br><span class="line"></span><br><span class="line">Environment.getDownloadCacheDirectory()</span><br><span class="line">		-&gt;	/data/cache </span><br><span class="line">		<span class="comment">//	下载缓存目录</span></span><br><span class="line">	</span><br><span class="line">Environment.getExternalStorageDirectory()</span><br><span class="line">		-&gt;	/storage/emulated/<span class="number">0</span></span><br><span class="line">		<span class="comment">//	主要的外部存储目录		需要使用Environment.getExternalStorageState()判断状态.</span></span><br><span class="line"></span><br><span class="line">Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS)			</span><br><span class="line">		-&gt;	/storage/emulated/<span class="number">0</span>/Alarms</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>私有目录,<font color="red"><strong>清理数据和缓存的路径,应用被卸载时清理,也可自己手动清理</strong> </font></p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">context.getExternalCacheDir()</span><br><span class="line">	-&gt;/storage/emulated/<span class="number">0</span>/Android/data/packageName/cache</span><br><span class="line"></span><br><span class="line">context.getExternalFilesDir(Environment.DIRECTORY_ALARMS)</span><br><span class="line">	-&gt;/storage/emulated/<span class="number">0</span>/Android/data/packageName/files/Alarms</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结:"></a><font color="red">总结:</font></h3><ol>
+<li>内部存储和外部存储都存在路径让其他应用读取;</li>
+<li>内部存储/data/user/0/包名/ 或 data/data/包名/</li>
+<li>外部存储文件存储都是要精确到文件夹的;</li>
+<li>外部存储存储在外部sdCard中,使用上下文得到的是私有的,也是常清理的位置;</li>
+<li><p>外部存储路径</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">showLog(<span class="string">"Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS)-&gt;"</span>+ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS).getAbsolutePath());</span><br><span class="line">showLog(<span class="string">"Environment.getDownloadCacheDirectory()-&gt;"</span>+Environment.getDownloadCacheDirectory().getAbsolutePath());</span><br><span class="line">showLog(<span class="string">"Environment.getDataDirectory()-&gt;"</span>+Environment.getDataDirectory().getAbsolutePath());</span><br><span class="line">showLog(<span class="string">"Environment.getExternalStorageDirectory()-&gt;"</span>+Environment.getExternalStorageDirectory().getAbsolutePath());</span><br><span class="line">showLog(<span class="string">"Environment.getRootDirectory()-&gt;"</span>+ Environment.getRootDirectory().getAbsolutePath());</span><br><span class="line">showLog(<span class="string">"getExternalCacheDir()-&gt;"</span>+getExternalCacheDir().getAbsolutePath());</span><br><span class="line">showLog(<span class="string">"getExternalFilesDir(Environment.DIRECTORY_ALARMS)-&gt;"</span>+getExternalFilesDir(Environment.DIRECTORY_ALARMS).getAbsolutePath());</span><br><span class="line">showLog(<span class="string">"内部存储-&gt;"</span>+getCacheDir().getAbsolutePath());</span><br><span class="line">showLog(<span class="string">"内部存储-&gt;"</span>+getFilesDir().getAbsolutePath());</span><br><span class="line">Environment.getExternalStorageState();</span><br><span class="line">       </span><br><span class="line"><span class="comment">//小米6 环境下</span></span><br><span class="line">       W: Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS)-&gt;/storage/emulated/<span class="number">0</span>/Alarms</span><br><span class="line">       W: Environment.getDownloadCacheDirectory()-&gt;/data/cache</span><br><span class="line">       W: Environment.getDataDirectory()-&gt;/data</span><br><span class="line">       W: Environment.getExternalStorageDirectory()-&gt;/storage/emulated/<span class="number">0</span></span><br><span class="line">       W: Environment.getRootDirectory()-&gt;/system</span><br><span class="line">       W: getExternalCacheDir()-&gt;/storage/emulated/<span class="number">0</span>/Android/data/com.billliao.fentu/cache</span><br><span class="line">       W: getExternalFilesDir(Environment.DIRECTORY_ALARMS)-&gt;/storage/emulated/<span class="number">0</span>/Android/data/com.billliao.fentu/files/Alarms</span><br><span class="line">       W: 内部存储-&gt;/data/user/<span class="number">0</span>/com.billliao.fentu/cache</span><br><span class="line">       W: 内部存储-&gt;/data/user/<span class="number">0</span>/com.billliao.fentu/files</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+	<div>
+      
+        
+      
+	</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/内部存储/" rel="tag"><i class="fa fa-tag"></i> 内部存储</a>
+          
+            <a href="/tags/外部存储/" rel="tag"><i class="fa fa-tag"></i> 外部存储</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/11/Android之存储——SharedPreferences/" rel="next" title="Android存储之 SharedPreferences">
+                <i class="fa fa-chevron-left"></i> Android存储之 SharedPreferences
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/11/Android之显示——WindowManager/" rel="prev" title="Android显示之Window,WindowManager,WindowManagerService">
+                Android显示之Window,WindowManager,WindowManagerService <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://i.imgur.com/hwLvP2j.jpg"
+                alt="SchafferWang" />
+            
+              <p class="site-author-name" itemprop="name">SchafferWang</p>
+              <p class="site-description motion-element" itemprop="description">我要一步一步往上爬<br>只待阳光静静看着它的脸<br>小小的天有大大的梦想<br>重重的壳裹着轻轻的仰望</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/SchafferWang0818" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5055805571/profile?topnav=1&wvr=6" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/schaffer.me/activities" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="../../../../Preview.html" target="_blank" title="简历">
+                      
+                        <i class="fa fa-fw fa-globe"></i>简历</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.liaojian.top/" title="ios大神_廖坚的性福生活" target="_blank">ios大神_廖坚的性福生活</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.ihoey.com/" title="前端大牛_胡璠的性福生活" target="_blank">前端大牛_胡璠的性福生活</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#内部存储"><span class="nav-number">1.</span> <span class="nav-text">内部存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内部存储描述-amp-注意事项"><span class="nav-number">1.1.</span> <span class="nav-text"> 内部存储描述&amp;注意事项 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部存储的路径"><span class="nav-number">1.2.</span> <span class="nav-text"> 内部存储的路径 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部存储使用方式"><span class="nav-number">1.3.</span> <span class="nav-text"> 内部存储使用方式 </span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外部存储"><span class="nav-number">2.</span> <span class="nav-text">外部存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#外部存储存储路径和使用方式"><span class="nav-number">2.1.</span> <span class="nav-text"> 外部存储存储路径和使用方式 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.2.</span> <span class="nav-text">总结:</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SchafferWang</span>
+
+  
+</div>
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>

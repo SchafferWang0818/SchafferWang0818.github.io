@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="android,MotionEvent," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MotionEvent1. 不常用事件; 2. 多点触控事件; 3. 历史数据(事件批处理); 4. 获取事件发生的时间; 5. 获取压力(接触面积大小); 6. 鼠标事件; 参考自: http://www.gcssloop.com/customview/motionevent">
+<meta name="keywords" content="android,MotionEvent">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android自定义控件之 MotionEvent">
+<meta property="og:url" content="http://yoursite.com/2018/08/11/Android之自定义控件——事件之MotionEvent/index.html">
+<meta property="og:site_name" content="SchafferWang&#39;s blogs">
+<meta property="og:description" content="MotionEvent1. 不常用事件; 2. 多点触控事件; 3. 历史数据(事件批处理); 4. 获取事件发生的时间; 5. 获取压力(接触面积大小); 6. 鼠标事件; 参考自: http://www.gcssloop.com/customview/motionevent">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-11T04:37:02.107Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android自定义控件之 MotionEvent">
+<meta name="twitter:description" content="MotionEvent1. 不常用事件; 2. 多点触控事件; 3. 历史数据(事件批处理); 4. 获取事件发生的时间; 5. 获取压力(接触面积大小); 6. 鼠标事件; 参考自: http://www.gcssloop.com/customview/motionevent">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/11/Android之自定义控件——事件之MotionEvent/"/>
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+  <title>Android自定义控件之 MotionEvent | SchafferWang's blogs</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SchafferWang's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Writed by SchafferWang</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/../../../../Preview.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/11/Android之自定义控件——事件之MotionEvent/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SchafferWang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.imgur.com/hwLvP2j.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SchafferWang's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android自定义控件之 MotionEvent</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-11T12:37:02+08:00">
+                2018-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android-总结/" itemprop="url" rel="index">
+                    <span itemprop="name">android 总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="MotionEvent"><a href="#MotionEvent" class="headerlink" title="MotionEvent"></a>MotionEvent</h1><pre><code>1. 不常用事件;
+2. 多点触控事件;
+3. 历史数据(事件批处理);
+4. 获取事件发生的时间;
+5. 获取压力(接触面积大小);
+6. 鼠标事件;
+参考自: http://www.gcssloop.com/customview/motionevent
+</code></pre><a id="more"></a>
+<hr>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ACTION_DOWN</code></td>
+<td>手指 初次接触到屏幕 时触发。</td>
+</tr>
+<tr>
+<td><code>ACTION_MOVE</code></td>
+<td>手指 在屏幕上滑动 时触发，会多次触发。</td>
+</tr>
+<tr>
+<td><code>ACTION_UP</code></td>
+<td>手指 离开屏幕 时触发。</td>
+</tr>
+<tr>
+<td><code>ACTION_CANCEL</code></td>
+<td>事件 <strong>被上层拦截</strong> 时触发。</td>
+</tr>
+<tr>
+<td><code>ACTION_OUTSIDE</code></td>
+<td>手指 <strong>不在控件区域</strong> 时触发。</td>
+</tr>
+<tr>
+<td><code>ACTION_POINTER_DOWN</code></td>
+<td>有<strong>非主要</strong>的手指<strong>按下</strong>(即按下之前已经有手指在屏幕上)。</td>
+</tr>
+<tr>
+<td><code>ACTION_POINTER_UP</code></td>
+<td>有<strong>非主要</strong>的手指<strong>抬起</strong>(即抬起之后仍然有手指在屏幕上)。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="不常用事件之ACTION-CANCEL"><a href="#不常用事件之ACTION-CANCEL" class="headerlink" title="不常用事件之ACTION_CANCEL"></a>不常用事件之<code>ACTION_CANCEL</code></h3><p><strong>父容器在判断了事件之后对事件处理权的收回,<code>childView</code>收到<code>ACTION_CANCEL</code>不会收到后续事件。</strong></p>
+<blockquote>
+<p><code>RecyclerView</code>：儿砸，这里有一个 <code>ACTION_DOWN</code> 你看你要不要。<br><code>ItemView</code> ：好嘞，我看看。<br><code>RecyclerView</code>：噫？居然是移动事件 <code>ACTION_MOVE</code>，我要滚起来了，儿砸，我可能要把你送去你姑父家(缓存区)了，在这之前给你一个 <code>ACTION_CANCEL</code>，你要收好啊。<br><code>ItemView</code> ：……</p>
+</blockquote>
+<hr>
+<h3 id="不常用事件之ACTION-OUTSIDE"><a href="#不常用事件之ACTION-OUTSIDE" class="headerlink" title="不常用事件之ACTION_OUTSIDE"></a>不常用事件之<code>ACTION_OUTSIDE</code></h3><p>视图所在的<code>WindowManager</code>设置了<code>FLAG_WATCH_OUTSIDE_TOUCH</code>的<code>flag</code>后才能收到的动作。</p>
+<hr>
+<h3 id="多点触控"><a href="#多点触控" class="headerlink" title="多点触控"></a>多点触控</h3><p><strong>通过多点编号完成指针判断。第一次按下的手指特殊处理作为主指针，之后按下的手指作为辅助指针。</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ev.getActionMasked()</code></td>
+<td>与 <code>getAction()</code> 类似，<strong>多点触控必须使用这个方法获取事件类型</strong>。</td>
+</tr>
+<tr>
+<td><del><code>ev.getActionIndex()</code></del></td>
+<td><del>获取该事件是哪个指针(手指)产生的。</del></td>
+</tr>
+<tr>
+<td><code>ev.getPointerCount()</code></td>
+<td>获取在屏幕上手指的个数。</td>
+</tr>
+<tr>
+<td><code>ev.getPointerId(int pointerIndex)</code></td>
+<td>获取一个指针(手指)的唯一标识符ID，在手指按下和抬起之间ID始终不变。</td>
+</tr>
+<tr>
+<td><code>ev.findPointerIndex(int pointerId)</code></td>
+<td>通过<code>PointerId</code>获取到当前状态下<code>PointIndex</code>，之后通过<code>PointIndex</code>获取其他内容。</td>
+</tr>
+<tr>
+<td><code>ev.getX(int pointerIndex )</code></td>
+<td>获取某一个指针(手指)的X坐标</td>
+</tr>
+<tr>
+<td><code>ev.getY(int pointerIndex )</code></td>
+<td>获取某一个指针(手指)的Y坐标</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>当多个手指在屏幕上按下的时候，会产生大量的事件，如何在获取事件类型的同时区分这些事件就是一个大问题了。一般来说我们可以通过为事件添加一个int类型的index属性来区分，但是谷歌工程师是有洁癖的，<font color="blue"><strong>为了添加一个通常数值不会超过10的index属性就浪费一个int大小的空间简直是不能忍受的</strong></font>，于是工程师们将这个index属性和事件类型直接合并了。int类型共32位(0x00000000)，他们用最低8位(0x000000<strong>ff</strong>)表示事件类型，再往前的8位(0x0000<strong>ff</strong>00)表示事件编号。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>手指按下</th>
+<th>触发事件(数值)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第1个手指按下</td>
+<td><code>ACTION_DOWN</code> (0x0000<strong>00</strong>00)</td>
+</tr>
+<tr>
+<td>—</td>
+<td><code>ACTION_POINTER_DOWN</code>(0x0000<strong>00</strong>05)</td>
+</tr>
+<tr>
+<td>第2个手指按下</td>
+<td><code>ACTION_POINTER_2_DOWN</code> (0x0000<strong>01</strong>05)</td>
+</tr>
+<tr>
+<td>第3个手指按下</td>
+<td><code>ACTION_POINTER_3_DOWN</code> (0x0000<strong>02</strong>05)</td>
+</tr>
+<tr>
+<td>第4个手指按下</td>
+<td><code>ACTION_POINTER_4_DOWN</code> (0x0000<strong>03</strong>05)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注意：<br>上面表格中用粗体标示出的数值，可以看到随着按下手指数量的增加，这个数值也是一直变化的，进而导致我们使用 <code>getAction()</code> 获取到的数值无法与标准的事件类型进行对比，为了解决这个问题，他们创建了一个 <code>getActionMasked()</code> 方法，这个方法可以清除index数值，让其变成一个标准的事件类型。<br><strong><font color="black"> 1、多点触控时必须使用 <code>getActionMasked()</code> 来获取事件类型。<br>2、单点触控时由于事件数值不变，使用 <code>getAction()</code> 和 <code>getActionMasked()</code> 两个方法都可以。<br>3、使用 <code>getActionIndex()</code> 可以获取到这个index数值。不过请注意，<code>getActionIndex()</code> 只在 down 和 up 时有效，move 时是无效的。</font></strong></p>
+</blockquote>
+<blockquote>
+<p>目前来说获取事件类型使用 <code>getActionMasked()</code> 就行了，但是如果一定要编译时兼容古董版本的话，可以考虑使用这样的写法:</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> action = (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.FROYO)</span><br><span class="line">                ? event.getActionMasked()</span><br><span class="line">                : event.getAction();</span><br><span class="line"><span class="keyword">switch</span> (action)&#123;</span><br><span class="line">    <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</span><br><span class="line">        <span class="comment">// TODO</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="历史数据-事件批处理"><a href="#历史数据-事件批处理" class="headerlink" title="历史数据(事件批处理)"></a>历史数据(事件批处理)</h3><p>由于我们的设备非常灵敏，手指稍微移动一下就会产生一个移动事件，所以移动事件会产生的特别频繁，为了提高效率，<font color="red"><strong>系统会将近期的多个移动事件(move)按照事件发生的顺序进行排序打包放在同一个 MotionEvent 中</strong></font>，与之对应的产生了以下方法：</p>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ev.getHistorySize()</code></td>
+<td>获取历史事件集合大小</td>
+</tr>
+<tr>
+<td><code>ev.getHistoricalX(int pos)</code></td>
+<td>获取第pos个历史事件x坐标 <br><code>(pos &lt; getHistorySize())</code></td>
+</tr>
+<tr>
+<td><code>ev.getHistoricalY(int pos)</code></td>
+<td>获取第pos个历史事件y坐标 <br><code>(pos &lt; getHistorySize())</code></td>
+</tr>
+<tr>
+<td><code>ev.getHistoricalX (int pin, int pos)</code></td>
+<td>获取第pin个手指的第pos个历史事件x坐标 <br><code>(pin &lt; getPointerCount(), pos &lt; getHistorySize() )</code></td>
+</tr>
+<tr>
+<td><code>ev.getHistoricalY (int pin, int pos)</code></td>
+<td>获取第pin个手指的第pos个历史事件y坐标 <br><code>(pin &lt; getPointerCount(), pos &lt; getHistorySize() )</code></td>
+</tr>
+</tbody>
+</table>
+<p>注意：</p>
+<ul>
+<li>pin 全称是 <code>pointerIndex</code>，表示第几个手指，此处为了节省空间使用了缩写。</li>
+<li><font color="red"> 历史数据只有 <code>ACTION_MOVE</code> 事件。</font></li>
+<li>历史数据单点触控和多点触控均可以用。</li>
+</ul>
+<p>下面是官方文档给出的一个简单使用示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printSamples</span><span class="params">(MotionEvent ev)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">final</span> <span class="keyword">int</span> historySize = ev.getHistorySize();</span><br><span class="line">     <span class="keyword">final</span> <span class="keyword">int</span> pointerCount = ev.getPointerCount();</span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> h = <span class="number">0</span>; h &lt; historySize; h++) &#123;</span><br><span class="line">         System.out.printf(<span class="string">"At time %d:"</span>, ev.getHistoricalEventTime(h));</span><br><span class="line">         <span class="keyword">for</span> (<span class="keyword">int</span> p = <span class="number">0</span>; p &lt; pointerCount; p++) &#123;</span><br><span class="line">             System.out.printf(<span class="string">"  pointer %d: (%f,%f)"</span>,</span><br><span class="line">                 ev.getPointerId(p), ev.getHistoricalX(p, h), ev.getHistoricalY(p, h));</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     System.out.printf(<span class="string">"At time %d:"</span>, ev.getEventTime());</span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> p = <span class="number">0</span>; p &lt; pointerCount; p++) &#123;</span><br><span class="line">         System.out.printf(<span class="string">"  pointer %d: (%f,%f)"</span>,</span><br><span class="line">             ev.getPointerId(p), ev.getX(p), ev.getY(p));</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="获取事件发生的时间"><a href="#获取事件发生的时间" class="headerlink" title="获取事件发生的时间"></a>获取事件发生的时间</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getDownTime()</code></td>
+<td>获取手指按下时的时间。</td>
+</tr>
+<tr>
+<td><code>getEventTime()</code></td>
+<td>获取当前事件发生的时间。</td>
+</tr>
+<tr>
+<td><code>getHistoricalEventTime(int pos)</code></td>
+<td>获取历史事件发生的时间。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>pos 表示历史数据中的第几个数据。( pos &lt; getHistorySize() )<br>返回值类型为 long，单位是毫秒。</p>
+</blockquote>
+<hr>
+<h3 id="获取压力-接触面积大小"><a href="#获取压力-接触面积大小" class="headerlink" title="获取压力(接触面积大小)"></a>获取压力(接触面积大小)</h3><p>MotionEvent支持获取某些输入设备(手指或触控笔)的与屏幕的接触面积和压力大小，主要有以下方法：</p>
+<blockquote>
+<p>描述中使用了手指，触控笔也是一样的。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getSize ()</code></td>
+<td>获取第1个手指与屏幕接触面积的大小</td>
+</tr>
+<tr>
+<td><code>getSize (int pin)</code></td>
+<td>获取第pin个手指与屏幕接触面积的大小</td>
+</tr>
+<tr>
+<td><code>getHistoricalSize (int pos)</code></td>
+<td>获取历史数据中第1个手指在第pos次事件中的接触面积</td>
+</tr>
+<tr>
+<td><code>getHistoricalSize (int pin, int pos)</code></td>
+<td>获取历史数据中第pin个手指在第pos次事件中的接触面积</td>
+</tr>
+<tr>
+<td><code>getPressure ()</code></td>
+<td>获取第一个手指的压力大小</td>
+</tr>
+<tr>
+<td><code>getPressure (int pin)</code></td>
+<td>获取第pin个手指的压力大小</td>
+</tr>
+<tr>
+<td><code>getHistoricalPressure (int pos)</code></td>
+<td>获取历史数据中第1个手指在第pos次事件中的压力大小</td>
+</tr>
+<tr>
+<td><code>getHistoricalPressure (int pin, int pos)</code></td>
+<td>获取历史数据中第pin个手指在第pos次事件中的压力大小</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>pin 全称是 pointerIndex，表示第几个手指。<code>(pin &lt; getPointerCount() )</code><br>pos 表示历史数据中的第几个数据。<code>( pos &lt; getHistorySize() )</code></p>
+</blockquote>
+<p>注意：</p>
+<ol>
+<li>获取接触面积大小和获取压力大小是需要硬件支持的。</li>
+<li>非常不幸的是<font color="red"><strong>大部分设备所使用的电容屏不支持压力检测</strong></font>，但能够大致检测出接触面积。</li>
+<li><font color="red">大部分设备的 <code>getPressure()</code> 是使用接触面积来模拟的</font>。</li>
+<li>由于某些未知的原因(可能系统版本和硬件问题)，某些设备不支持 <code>getPressure()</code>。</li>
+<li>系统问题造成<font color="blue"><strong>有的设备上只有<code>getSize()</code>能用，有的设备上只有 <code>getPressure()</code> 能用，而有的则两个都不能用</strong></font>。</li>
+</ol>
+<p>由于获取接触面积和获取压力大小受系统和硬件影响，使用的时候一定要进行数据检测，以防因为设备问题而导致程序出错。</p>
+<hr>
+<h3 id="鼠标事件"><a href="#鼠标事件" class="headerlink" title="鼠标事件"></a>鼠标事件</h3><p>由于触控笔事件和手指事件处理流程大致相同，与鼠标相关的几个事件：</p>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ACTION_HOVER_ENTER</code></td>
+<td>指针移入到窗口或者View区域，但没有按下。</td>
+</tr>
+<tr>
+<td><code>ACTION_HOVER_MOVE</code></td>
+<td>指针在窗口或者View区域移动，但没有按下。</td>
+</tr>
+<tr>
+<td><code>ACTION_HOVER_EXIT</code></td>
+<td>指针移出到窗口或者View区域，但没有按下。</td>
+</tr>
+<tr>
+<td><code>ACTION_SCROLL</code></td>
+<td>滚轮滚动，可以触发水平滚动(<code>AXIS_HSCROLL</code>)或者垂直滚动(<code>AXIS_VSCROLL</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>注意：</p>
+<ol>
+<li>这些事件类型是 安卓4.0 (API 14) 才添加的。</li>
+<li>使用 <code>getActionMasked()</code> 获得这些事件类型。</li>
+<li>这些事件不会传递到 <code>onTouchEvent(MotionEvent)</code> 而是传递到 <code>onGenericMotionEvent(MotionEvent)</code> 。</li>
+</ol>
+<hr>
+
+      
+    </div>
+    
+    
+    
+	<div>
+      
+        
+      
+	</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
+          
+            <a href="/tags/MotionEvent/" rel="tag"><i class="fa fa-tag"></i> MotionEvent</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/11/Android之自定义控件——View测量,布局,绘制/" rel="next" title="Android自定义控件之测量,布局,绘制过程">
+                <i class="fa fa-chevron-left"></i> Android自定义控件之测量,布局,绘制过程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/11/Android之自定义控件——事件分发,拦截,处理/" rel="prev" title="Android自定义控件之事件分发机制表现与实现原理">
+                Android自定义控件之事件分发机制表现与实现原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://i.imgur.com/hwLvP2j.jpg"
+                alt="SchafferWang" />
+            
+              <p class="site-author-name" itemprop="name">SchafferWang</p>
+              <p class="site-description motion-element" itemprop="description">我要一步一步往上爬<br>只待阳光静静看着它的脸<br>小小的天有大大的梦想<br>重重的壳裹着轻轻的仰望</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/SchafferWang0818" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5055805571/profile?topnav=1&wvr=6" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/schaffer.me/activities" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="../../../../Preview.html" target="_blank" title="简历">
+                      
+                        <i class="fa fa-fw fa-globe"></i>简历</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.liaojian.top/" title="ios大神_廖坚的性福生活" target="_blank">ios大神_廖坚的性福生活</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.ihoey.com/" title="前端大牛_胡璠的性福生活" target="_blank">前端大牛_胡璠的性福生活</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MotionEvent"><span class="nav-number">1.</span> <span class="nav-text">MotionEvent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#不常用事件之ACTION-CANCEL"><span class="nav-number">1.0.1.</span> <span class="nav-text">不常用事件之ACTION_CANCEL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不常用事件之ACTION-OUTSIDE"><span class="nav-number">1.0.2.</span> <span class="nav-text">不常用事件之ACTION_OUTSIDE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多点触控"><span class="nav-number">1.0.3.</span> <span class="nav-text">多点触控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#历史数据-事件批处理"><span class="nav-number">1.0.4.</span> <span class="nav-text">历史数据(事件批处理)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取事件发生的时间"><span class="nav-number">1.0.5.</span> <span class="nav-text">获取事件发生的时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取压力-接触面积大小"><span class="nav-number">1.0.6.</span> <span class="nav-text">获取压力(接触面积大小)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#鼠标事件"><span class="nav-number">1.0.7.</span> <span class="nav-text">鼠标事件</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SchafferWang</span>
+
+  
+</div>
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>

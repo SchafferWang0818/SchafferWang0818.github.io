@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端,CSS/CSS3," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前端基础之CSS / CSS3 样式属性">
+<meta name="keywords" content="前端,CSS&#x2F;CSS3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端基础之CSS &#x2F; CSS3 样式属性">
+<meta property="og:url" content="http://yoursite.com/2018/08/11/前端基础之CSS(3)样式属性/index.html">
+<meta property="og:site_name" content="SchafferWang&#39;s blogs">
+<meta property="og:description" content="前端基础之CSS / CSS3 样式属性">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.w3school.com.cn/i/background-origin.gif">
+<meta property="og:updated_time" content="2018-08-11T04:37:02.115Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端基础之CSS &#x2F; CSS3 样式属性">
+<meta name="twitter:description" content="前端基础之CSS / CSS3 样式属性">
+<meta name="twitter:image" content="http://www.w3school.com.cn/i/background-origin.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/11/前端基础之CSS(3)样式属性/"/>
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+  <title>前端基础之CSS / CSS3 样式属性 | SchafferWang's blogs</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SchafferWang's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Writed by SchafferWang</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/../../../../Preview.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/11/前端基础之CSS(3)样式属性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SchafferWang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.imgur.com/hwLvP2j.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SchafferWang's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端基础之CSS / CSS3 样式属性</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-11T12:37:02+08:00">
+                2018-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前端基础之CSS-CSS3-样式属性"><a href="#前端基础之CSS-CSS3-样式属性" class="headerlink" title="前端基础之CSS / CSS3 样式属性"></a>前端基础之CSS / CSS3 样式属性</h1><a id="more"></a>
+<p><br></p>
+<h2 id="background"><a href="#background" class="headerlink" title="background"></a>background</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background: url(img/HBuilder.png) red repeat-x 20px 20px;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>属性连写 无论背景颜色和图片都必须设置水平和竖直的位置。其他无顺序可言。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>background相关属性</th>
+<th>属性含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>background-repeat</code></td>
+<td><code>repeat</code> 默认重复<br><code>no-repeat</code>不重复平铺<br><code>repeat-x</code> 横向重复平铺<br><code>repeat-y</code>纵向重复平铺</td>
+</tr>
+<tr>
+<td><code>background-attachment</code></td>
+<td><code>Scroll</code>默认值，<strong>随滚动条滚动 </strong><br><code>fixed</code>不随滚动条滚动</td>
+</tr>
+<tr>
+<td><code>background-position</code></td>
+<td><strong>背景位置的设置 , 同时设置两个固定数值参数时分别代表水平和竖直的位置 ;</strong> <br>参数包括：固定数值，center，left，right，top，bottom</td>
+</tr>
+<tr>
+<td><code>(CSS3)background-clip</code></td>
+<td>背景颜色的定位区域，<br>包括 <code>content-box</code>、<code>padding-box</code>、<code>border-box</code></td>
+</tr>
+<tr>
+<td><code>(CSS3)background-size</code></td>
+<td>背景图片大小,先宽后高</td>
+</tr>
+<tr>
+<td><code>(CSS3)background-origin</code></td>
+<td>背景图片的定位区域，<br>包括 <code>content-box</code>、<code>padding-box</code>、<code>border-box</code></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">background-position: center center;</span><br><span class="line">background-position: bottom right;</span><br><span class="line">background-position: 30% 20%; </span><br><span class="line">background-position: 30px 20px;</span><br><span class="line">background-position-x: center;</span><br><span class="line">background-position-y: center;</span><br></pre></td></tr></table></figure>
+<p>背景图片的定位区域如下:</p>
+<p><img src="http://www.w3school.com.cn/i/background-origin.gif" alt="背景图片的定位区域"></p>
+<hr>
+<h2 id="text"><a href="#text" class="headerlink" title="text"></a>text</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>color</code></td>
+<td style="text-align:left">文本颜色。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>direction</code></td>
+<td style="text-align:left">文本方向。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>line-height</code></strong></td>
+<td style="text-align:left">文本行高。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>letter-spacing</code></strong></td>
+<td style="text-align:left">字符/字的间距。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>word-spacing</code></strong></td>
+<td style="text-align:left">单词/字间距，<strong>仅在有空格的情况生效</strong>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text-align</code></td>
+<td style="text-align:left">文本对齐。左，中，右。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text-decoration</code></td>
+<td style="text-align:left">文本修饰（线）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text-indent</code></td>
+<td style="text-align:left">文本首行缩进，可正可负。CSS2.1 之前可继承。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text-transform</code></td>
+<td style="text-align:left">文本大小写转换。<br><code>none</code>　　　　　不做任何改动<br><code>uppercase</code>　　　全大写<br><code>lowercase</code>　　　全小写<br><code>capitalize</code>　　每个单词的首字母大写，<strong>仅在有空格的情况生效</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>white-space</code></td>
+<td style="text-align:left">文本空白处理，查看以下表格。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>font-family</code></td>
+<td style="text-align:left">字体，<strong>多个字体名称用于向后逐个兼容</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(CSS3)text-shadow</code></td>
+<td style="text-align:left">文本阴影，包含 ：<br><code>h-shadow</code>　　向右的阴影宽度<br><code>v-shadow</code>　　向下的阴影宽度<br><code>blur</code>　　　　阴影模糊半径<br><code>color</code>　　　阴影颜色</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(CSS3)word-wrap</code></td>
+<td style="text-align:left"><code>break-word</code> 　　文本中长单词可拆分换行</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(CSS3)column-count</code></td>
+<td style="text-align:left">文字分为水平方向 N 列显示</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(CSS3)column-gap</code></td>
+<td style="text-align:left">列之间的间隔大小</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(CSS3)column-rule</code><br>需兼容</td>
+<td style="text-align:left"><code>column-rule-color</code>    列间隔的颜色。<br><br><code>column-rule-style</code>    列间隔的样式。包括 <code>none.hidden.dotted.dashed.solid.</code><br><code>double.groove.ridge.inset.outset</code><br><br><code>column-rule-width</code>     列间隔的宽度。包括: <br><code>固定值.thin.medium.thick</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(CSS3)column-width</code></td>
+<td style="text-align:left">每列的宽度,可固定数值 <br><code>auto</code> 浏览器决定列宽</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(CSS3)column-span</code></td>
+<td style="text-align:left"><a href="http://www.w3school.com.cn/cssref/pr_column-span.asp" target="_blank" rel="noopener"><strong>父标签分列的情况下, 当前标签可以跨越的列数</strong></a><br><code>all</code>　　完全展开<br> <code>1</code>　　　只跨越一列</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>white-space</code>值</th>
+<th>空格</th>
+<th>换行</th>
+<th>自动换行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>normal</code></td>
+<td>合并</td>
+<td>忽略</td>
+<td>允许</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>nowrap</code></td>
+<td>合并</td>
+<td>忽略</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>pre</code></td>
+<td>保留</td>
+<td>保留</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>pre-wrap</code></td>
+<td>保留</td>
+<td>保留</td>
+<td>允许</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>pre-line</code></strong></td>
+<td>合并</td>
+<td>保留</td>
+<td>允许</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="列表list"><a href="#列表list" class="headerlink" title="列表list"></a>列表list</h2><p>主要设置列表前方的标志。</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>list-style</code></td>
+<td>属性连写</td>
+</tr>
+<tr>
+<td><code>list-style-image</code></td>
+<td>将图象设置为列表项标志。<code>url(../../.../1.jpg)</code></td>
+</tr>
+<tr>
+<td><code>list-style-position</code></td>
+<td>设置列表中列表项标志的位置 ( inside 偏内侧 、outside 偏外侧)</td>
+</tr>
+<tr>
+<td><strong><code>list-style-type</code></strong></td>
+<td>设置列表项标志的类型。</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>list-style-type</code>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>none</td>
+<td>无序：无标记。</td>
+</tr>
+<tr>
+<td>disc</td>
+<td>无序：默认实心圆。</td>
+</tr>
+<tr>
+<td>circle</td>
+<td>无序：空心圆。</td>
+</tr>
+<tr>
+<td>square</td>
+<td>无序：实心方块。</td>
+</tr>
+<tr>
+<td>decimal</td>
+<td>有序：数字。</td>
+</tr>
+<tr>
+<td>decimal-leading-zero</td>
+<td>有序：0开头的数字标记。(01, 02, 03, 等。)</td>
+</tr>
+<tr>
+<td>lower-roman</td>
+<td>有序：小写罗马数字(i, ii, iii, iv, v, 等。)</td>
+</tr>
+<tr>
+<td>upper-roman</td>
+<td>有序：大写罗马数字(I, II, III, IV, V, 等。)</td>
+</tr>
+<tr>
+<td>lower-alpha</td>
+<td>有序：小写英文字母The marker is lower-alpha (a,b, c, d, e, 等。)</td>
+</tr>
+<tr>
+<td>upper-alpha</td>
+<td>有序：大写英文字母The marker is upper-alpha (A, B, C, D, E, 等。)</td>
+</tr>
+<tr>
+<td>lower-greek</td>
+<td>有序：希腊字母(α, β, γ, 等。)</td>
+</tr>
+<tr>
+<td>lower-latin</td>
+<td>有序：小写拉丁字母(a, b, c, d, e, 等。)</td>
+</tr>
+<tr>
+<td>upper-latin</td>
+<td>有序：大写拉丁字母(A, B, C, D, E, 等。)</td>
+</tr>
+<tr>
+<td>hebrew</td>
+<td>有序：传统的希伯来编号方式</td>
+</tr>
+<tr>
+<td>armenian</td>
+<td>有序：传统的亚美尼亚编号方式</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="表格-table、tr、th、td"><a href="#表格-table、tr、th、td" class="headerlink" title="表格 table、tr、th、td"></a>表格 table、tr、th、td</h2><ul>
+<li><strong>默认table及table的所有子元素都有边框border但宽度为0。</strong></li>
+<li>文字对齐方式<code>text-align</code>,<code>vertical-align</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>border-collapse</code></strong></td>
+<td style="text-align:left"><strong>设置是否把表格边框合并为单一的边框。<br> <code>= collapse</code> 合并内外部边框；<br> <code>= separate</code> 显示内外部边框；</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>border-spacing</code></strong></td>
+<td style="text-align:left"><strong>单元格边框的距离</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>text-align</code></strong></td>
+<td style="text-align:left">文字<strong>左、中、右</strong>对齐</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>vertical-align</code></strong></td>
+<td style="text-align:left">文字<strong>上、中、下</strong>对齐</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>caption-side</code>    </strong></td>
+<td style="text-align:left"><strong>设置表格标题的位置，与<code>&lt;caption&gt;&lt;/caption&gt;</code>一起使用。</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>empty-cells</code></td>
+<td style="text-align:left">设置是否显示表格中的空单元格。<br> <code>= hide</code>　　　隐藏空的单元格；<br> <code>= show</code>　　　显示空的单元格；</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>table-layout</code></td>
+<td style="text-align:left">设置显示单元、行和列的算法。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="边框-border"><a href="#边框-border" class="headerlink" title="边框 border"></a>边框 border</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">border属性</th>
+<th style="text-align:left">属性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>border-width</code></td>
+<td style="text-align:left">边框宽度</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>border-style</code></td>
+<td style="text-align:left">边框样式 。<br><code>solid</code>　　　实线<br><code>dotted</code>　　点线<br><code>dashed</code>　　虚线<br><code>hidden</code>　　与<code>none</code> 相同,解决应用于表时边框的冲突<br><code>double</code>　　双线的宽度等于 <code>border-width</code> 的值。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>border-color</code></td>
+<td style="text-align:left">边框颜色</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(css3)border-radius</code></td>
+<td style="text-align:left">创建圆角</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(css3)box-shadow</code></td>
+<td style="text-align:left"><code>h-shadow</code>　　向右的阴影宽度<br><code>v-shadow</code>　　向下的阴影宽度<br><code>blur</code>　　　　可选, 阴影模糊半径<br><code>spread</code>　　　可选, 阴影尺寸大小<br><code>color</code>　　　可选, 阴影颜色<br><code>inset</code>　　　可选, 内部阴影,默认不设置为外部</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(css3)border-image</code></td>
+<td style="text-align:left">由以下属性构成:</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(css3)border-image-source</code></td>
+<td style="text-align:left">边框图片路径。    </td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(css3)border-image-slice</code></td>
+<td style="text-align:left">边框图片向内偏移。    </td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(css3)border-image-width</code></td>
+<td style="text-align:left">边框图片的宽度。    </td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(css3)border-image-outset</code></td>
+<td style="text-align:left">边框图像区域超出边框的量。    </td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(css3)border-image-repeat</code></td>
+<td style="text-align:left">边框图像平铺(<code>repeated</code>)、铺满(<code>rounded</code>)、拉伸(<code>stretched</code>)。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="转换-transform-CSS-3"><a href="#转换-transform-CSS-3" class="headerlink" title="转换 transform (CSS 3)"></a>转换 transform (CSS 3)</h2><p>注意: <font color="red"><strong>transform样式 需要完成 浏览器内核适配</strong>。</font></p>
+<table>
+<thead>
+<tr>
+<th>2D/3D变换</th>
+<th>释义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>translate　(0px,0px)</code></td>
+<td>平移</td>
+</tr>
+<tr>
+<td><code>translate3d(0px,0px,10px)</code></td>
+<td>平移3D</td>
+</tr>
+<tr>
+<td><code>translateX/Y/Z(x)</code></td>
+<td>用于 X / Y /(3D)Z 方向的平移。</td>
+</tr>
+<tr>
+<td><code>scale 　(1,1)</code></td>
+<td>缩放</td>
+</tr>
+<tr>
+<td><code>scale3d (1,1,1)</code></td>
+<td>缩放3D</td>
+</tr>
+<tr>
+<td><code>scaleX/Y/Z(0.3)</code></td>
+<td>用于 X  /Y /(3D)Z 方向的缩放。</td>
+</tr>
+<tr>
+<td><code>rotate　(angle)</code></td>
+<td>旋转</td>
+</tr>
+<tr>
+<td><code>rotate3d(k_x,k_y,k_z,angle)</code></td>
+<td>旋转3D ,<code>angle_x = k_x * angle</code></td>
+</tr>
+<tr>
+<td><code>rotateX/Y/Z(x)</code></td>
+<td>用于 X / Y /(3D)Z 方向的旋转。</td>
+</tr>
+<tr>
+<td><code>skew(angle,angle)</code></td>
+<td>错切</td>
+</tr>
+<tr>
+<td><code>skewX/Y(angle)</code></td>
+<td>沿着 X / Y 轴的 2D 倾斜转换。</td>
+</tr>
+<tr>
+<td><code>matrix(0,0,0,0,0,0)</code></td>
+<td>矩阵完成转换</td>
+</tr>
+<tr>
+<td><code>matrix3d(</code><br>　　　　<code>n,n,n,n,</code><br>　　　　<code>n,n,n,n,</code><br>　　　　<code>n,n,n,n,</code><br>　　　　<code>n,n,n,n　)</code></td>
+<td>矩阵完成3D转换</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="动态转换-transition-CSS-3"><a href="#动态转换-transition-CSS-3" class="headerlink" title="动态转换 transition  (CSS 3)"></a>动态转换 transition  (CSS 3)</h2><p>注意: <font color="red"><strong>transition样式 需要完成 浏览器内核适配</strong>。</font></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>transition</code>连写内容</th>
+<th style="text-align:left">释义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>transition-property</code></td>
+<td style="text-align:left">过渡效果对应的 CSS 属性名称。    </td>
+</tr>
+<tr>
+<td style="text-align:left"><code>transition-duration</code></td>
+<td style="text-align:left">过渡效果花费的时间。默认是 0。    </td>
+</tr>
+<tr>
+<td style="text-align:left"><code>transition-timing-function</code></td>
+<td style="text-align:left">过渡效果的时间曲线。默认是 “ease”。    </td>
+</tr>
+<tr>
+<td style="text-align:left"><code>transition-delay</code></td>
+<td style="text-align:left">过渡效果何时开始。默认是 0。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="动画-animation-CSS-3"><a href="#动画-animation-CSS-3" class="headerlink" title="动画 animation (CSS 3)"></a>动画 animation (CSS 3)</h2><p>注意: <font color="red"><strong>animation样式 与 @keyframes 需要完成 浏览器内核适配</strong>。</font></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@keyframes frame-name0</span><br><span class="line">&#123;</span><br><span class="line">	0%   &#123;background: red; left:0px; top:0px;&#125;</span><br><span class="line">	25%  &#123;background: yellow; left:200px; top:0px;&#125;</span><br><span class="line">	50%  &#123;background: blue; left:200px; top:200px;&#125;</span><br><span class="line">	75%  &#123;background: green; left:0px; top:200px;&#125;</span><br><span class="line">	100% &#123;background: red; left:0px; top:0px;&#125;</span><br><span class="line">&#125;</span><br><span class="line">@-moz-keyframes frame-name0 /* Firefox */</span><br><span class="line">&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">@keyframes frame-name1</span><br><span class="line">&#123;</span><br><span class="line">	from &#123;background: red; left:0px; top:0px;&#125;</span><br><span class="line">	to&#123;background: blue; left:200px; top:200px;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.tab1&#123;</span><br><span class="line">	animation: frame-name0 5s;</span><br><span class="line">	-moz-animation: frame-name0 5s;	/* Firefox */</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">描述    </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>@keyframes</code></td>
+<td style="text-align:left">规定动画。    </td>
+</tr>
+<tr>
+<td style="text-align:left"><code>animation</code></td>
+<td style="text-align:left">动画简写属性，除了 <code>animation-play-state</code> 属性。    </td>
+</tr>
+<tr>
+<td style="text-align:left"><code>animation-name</code></td>
+<td style="text-align:left">@keyframes 动画的名称。    </td>
+</tr>
+<tr>
+<td style="text-align:left"><code>animation-duration</code></td>
+<td style="text-align:left">动画一个周期的时间。默认是 0。    </td>
+</tr>
+<tr>
+<td style="text-align:left"><code>animation-timing-function</code></td>
+<td style="text-align:left"><a href="http://blog.csdn.net/qq_23269747/article/details/76152689" target="_blank" rel="noopener"><strong>动画速度曲线<code>cubic-bezier(n,n,n,n)</code>。<br><code>ease</code>、<code>linear</code>、<br> <code>ease-in</code>、<code>ease-out</code>、 <code>ease-in-out</code> 、<br> <code>step-start</code> 、 <code>step-end</code></strong></a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>animation-delay</code></td>
+<td style="text-align:left">动画延时时长。默认是 0(s or ms)。    </td>
+</tr>
+<tr>
+<td style="text-align:left"><code>animation-iteration-count</code></td>
+<td style="text-align:left">动画播放次数。默认是 1。    </td>
+</tr>
+<tr>
+<td style="text-align:left"><code>animation-direction</code></td>
+<td style="text-align:left">动画是否逆向播放(下个周期)。<br>正向　　　<code>normal</code> <br>反向　　　<code>reverse</code><br>正向交替　<code>alternate</code><br>反向交替　<code>alternate-reverse</code>    </td>
+</tr>
+<tr>
+<td style="text-align:left"><code>animation-fill-mode</code></td>
+<td style="text-align:left"><a href="https://www.w3cplus.com/css3/understanding-css-animation-fill-mode-property.html" target="_blank" rel="noopener"><strong>对象动画时间之外的状态。<br><code>none</code>、<code>both</code>、<code>forwards</code> 、<code>backwards</code></strong></a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>animation-play-state</code></td>
+<td style="text-align:left">动画是否正在运行<code>(running , 默认)</code>或暂停<code>(paused)</code>。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+
+      
+    </div>
+    
+    
+    
+	<div>
+      
+        
+      
+	</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+            <a href="/tags/CSS-CSS3/" rel="tag"><i class="fa fa-tag"></i> CSS/CSS3</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/11/前端基础/" rel="next" title="前端基础">
+                <i class="fa fa-chevron-left"></i> 前端基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://i.imgur.com/hwLvP2j.jpg"
+                alt="SchafferWang" />
+            
+              <p class="site-author-name" itemprop="name">SchafferWang</p>
+              <p class="site-description motion-element" itemprop="description">我要一步一步往上爬<br>只待阳光静静看着它的脸<br>小小的天有大大的梦想<br>重重的壳裹着轻轻的仰望</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/SchafferWang0818" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5055805571/profile?topnav=1&wvr=6" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/schaffer.me/activities" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="../../../../Preview.html" target="_blank" title="简历">
+                      
+                        <i class="fa fa-fw fa-globe"></i>简历</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.liaojian.top/" title="ios大神_廖坚的性福生活" target="_blank">ios大神_廖坚的性福生活</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.ihoey.com/" title="前端大牛_胡璠的性福生活" target="_blank">前端大牛_胡璠的性福生活</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端基础之CSS-CSS3-样式属性"><span class="nav-number">1.</span> <span class="nav-text">前端基础之CSS / CSS3 样式属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#background"><span class="nav-number">1.1.</span> <span class="nav-text">background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#text"><span class="nav-number">1.2.</span> <span class="nav-text">text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表list"><span class="nav-number">1.3.</span> <span class="nav-text">列表list</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表格-table、tr、th、td"><span class="nav-number">1.4.</span> <span class="nav-text">表格 table、tr、th、td</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边框-border"><span class="nav-number">1.5.</span> <span class="nav-text">边框 border</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转换-transform-CSS-3"><span class="nav-number">1.6.</span> <span class="nav-text">转换 transform (CSS 3)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态转换-transition-CSS-3"><span class="nav-number">1.7.</span> <span class="nav-text">动态转换 transition  (CSS 3)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动画-animation-CSS-3"><span class="nav-number">1.8.</span> <span class="nav-text">动画 animation (CSS 3)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SchafferWang</span>
+
+  
+</div>
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>

@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="android,Kotlin," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="类的结构类可以包括: - 初始化块     - 初始化代码块(init)中可以使用主构造的参数; - 构造函数 - 属性 - 函数 - 嵌套类和内部类 - 对象表达式 - 对象声明 类的模拟结构如下: 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354">
+<meta name="keywords" content="android,Kotlin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin——2. 类的结构与分类">
+<meta property="og:url" content="http://yoursite.com/2018/08/11/Kotlin——2. 类的结构与分类/index.html">
+<meta property="og:site_name" content="SchafferWang&#39;s blogs">
+<meta property="og:description" content="类的结构类可以包括: - 初始化块     - 初始化代码块(init)中可以使用主构造的参数; - 构造函数 - 属性 - 函数 - 嵌套类和内部类 - 对象表达式 - 对象声明 类的模拟结构如下: 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-11T04:37:02.112Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kotlin——2. 类的结构与分类">
+<meta name="twitter:description" content="类的结构类可以包括: - 初始化块     - 初始化代码块(init)中可以使用主构造的参数; - 构造函数 - 属性 - 函数 - 嵌套类和内部类 - 对象表达式 - 对象声明 类的模拟结构如下: 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/11/Kotlin——2. 类的结构与分类/"/>
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+  <title>Kotlin——2. 类的结构与分类 | SchafferWang's blogs</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SchafferWang's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Writed by SchafferWang</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/../../../../Preview.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/11/Kotlin——2. 类的结构与分类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SchafferWang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.imgur.com/hwLvP2j.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SchafferWang's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Kotlin——2. 类的结构与分类</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-11T12:37:02+08:00">
+                2018-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kotlin/" itemprop="url" rel="index">
+                    <span itemprop="name">Kotlin</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="类的结构"><a href="#类的结构" class="headerlink" title="类的结构"></a>类的结构</h2><p>类可以包括:</p>
+<pre><code>- 初始化块
+    - 初始化代码块(init)中可以使用主构造的参数;
+- 构造函数
+- 属性
+- 函数
+- 嵌套类和内部类
+- 对象表达式
+- 对象声明
+</code></pre><p>类的模拟结构如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[open/abstract] class &lt;类名&gt; [&lt;访问修饰符&gt;] [&lt;注解&gt;] [constructor] </span><br><span class="line">	[([override] [val/var] &lt;参数1&gt;:&lt;类型1&gt; [= &lt;默认值&gt;],.....  )]</span><br><span class="line">	[: &lt; 基类/接口类名&gt;([val/var] &lt;参数N&gt;:&lt;类型N&gt;,.....  ),...] &#123;</span><br><span class="line">	//类体</span><br><span class="line"></span><br><span class="line">	//初始化代码块必须使用init字段</span><br><span class="line">	init &#123;</span><br><span class="line">		...</span><br><span class="line">       &#125;		</span><br><span class="line"></span><br><span class="line">	//次构造,委托或间接委托给主构造</span><br><span class="line">	constructor (&lt;参数1&gt;:&lt;类型1&gt;,.....)[: this/super(&lt;参数名&gt;,...)]&#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//属性</span><br><span class="line">	[open/override]	[&lt;访问修饰符&gt;] var/val &lt;属性名称&gt; [: &lt;属性类型&gt;] [ = &lt;默认属性值&gt;]</span><br><span class="line">	[&lt;属性的getter访问器&gt;]// var / val 时均存在</span><br><span class="line">	[&lt;属性的setter访问器&gt;]// val 时不存在,只能在构造函数中初始化</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	//函数/方法</span><br><span class="line">	[open/override] [&lt;访问修饰符&gt;] fun [&lt;扩展函数指定调用类型 .&gt;] [函数名称]</span><br><span class="line">		([val/var] [形参名称]:[形参类型] [ = &lt; 默认值 &gt;],...) : [&lt;返回值类型&gt;/Unit]&#123;</span><br><span class="line">			</span><br><span class="line">		//函数体</span><br><span class="line">		...</span><br><span class="line"></span><br><span class="line">		//return Unit</span><br><span class="line">		return </span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//对象表达式,接收者可以是属性或函数</span><br><span class="line">	属性/函数 = object [:&lt;继承/实现基类&gt;(参数:类型,....),...]&#123;</span><br><span class="line"></span><br><span class="line">		//属性和函数定义</span><br><span class="line">		...</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	//高阶函数</span><br><span class="line">	[open/override][&lt;访问修饰符&gt;] fun [&lt;扩展函数指定调用类型 .&gt;] [函数名称]</span><br><span class="line">				([形参名称]:[形参类型] [ = &lt; 默认值 &gt;]</span><br><span class="line">				,...</span><br><span class="line">				,[定义函数名]:([传参类型1],...) -&gt; [返回类型]) : [&lt;返回值类型&gt;/Unit]&#123;</span><br><span class="line">			</span><br><span class="line">		......</span><br><span class="line">		//函数体</span><br><span class="line">		......</span><br><span class="line">		//return Unit</span><br><span class="line">		return </span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	//嵌套类/内部类(inner)</span><br><span class="line">	[open/abstract] [inner]  class &lt;类名&gt; [&lt;可见性修饰符&gt;] [&lt;注解&gt;] [constructor] </span><br><span class="line">		[([override] [val/var] &lt;参数1&gt;:&lt;类型1&gt; [= &lt;默认值&gt;],.....  )]</span><br><span class="line">		[: &lt; 基类/接口类名&gt;([val/var] &lt;参数N&gt;:&lt;类型N&gt;,.....  ),...]&#123;</span><br><span class="line"></span><br><span class="line">		...</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	//对象声明 = 静态单例,直接调用函数/属性</span><br><span class="line">	object &lt;名称&gt; [:&lt;继承/实现基类&gt;(参数:类型,....),...]&#123;</span><br><span class="line"></span><br><span class="line">		//属性/函数定义</span><br><span class="line">		...</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="类的分类"><a href="#类的分类" class="headerlink" title="类的分类"></a>类的分类</h2><h3 id="数据类-data-特色-解构声明-amp-copy"><a href="#数据类-data-特色-解构声明-amp-copy" class="headerlink" title="数据类(data)- 特色:解构声明 &amp; copy()"></a>数据类(data)- 特色:解构声明 &amp; copy()</h3><p>包含<strong>保存的数据和数据机械推导而来的函数</strong>的类,使用<code>data</code>修饰.</p>
+<h4 id="构造"><a href="#构造" class="headerlink" title="构造"></a>构造</h4><pre><code>data class ClazzName(var param1:Int,val param2:String,...)
+</code></pre><ol>
+<li>参数要求<ol>
+<li><strong><code>val/var</code></strong> 修饰</li>
+<li>构造必须有参数,除非参数均设置默认值</li>
+</ol>
+</li>
+<li>修饰符要求：不能用抽象(<strong><code>abstract</code></strong>),开放(<strong><code>open</code></strong>),密封,内部的;</li>
+<li>继承要求 - 只能实现接口</li>
+</ol>
+<p>构造自动导出以下函数(除非 <strong><code>自行定义以下函数造成覆盖</code></strong>):</p>
+<ul>
+<li><code>equals()</code></li>
+<li><code>hashCode()</code></li>
+<li><code>toString()</code>格式为 <code>ClazzName(var param1=1,val param2=&quot;String&quot;,...)</code></li>
+<li>根据参数(属性)声明顺序生成解构声明<code>component1(),component2()....componentN()</code></li>
+<li><p><code>copy()</code>用于改变某个对象的某个属性,其他不变的情况</p>
+<pre><code>val jack = User(name = &quot;Jack&quot;, age = 1)
+val olderJack = jack.copy(age = 2)
+</code></pre></li>
+</ul>
+<h4 id="解构声明-将一个对象属性同时赋值给一组的多个变量"><a href="#解构声明-将一个对象属性同时赋值给一组的多个变量" class="headerlink" title="解构声明 - 将一个对象属性同时赋值给一组的多个变量"></a>解构声明 - 将一个对象属性同时赋值给一组的多个变量</h4><pre><code>    val jane = User(&quot;Jane&quot;, 35)
+    val (name, age) = jane
+    //name与age为从对象jane获取值并同时声明的成员变量
+
+    val (name, age) = jane 
+    相当于:
+    val name = jane.component1()
+    val age = jane.component2()
+
+`componentN()` 函数需要用 **`operator`** 关键字标记，以允许在解构声明中使用它们。        
+</code></pre><p><strong>注意</strong>:</p>
+<ol>
+<li><p>可以用在<code>for-</code>循环中,经常用于a,b属性对于集合(<strong>可提供将映射表示为一个值的序列的iterator() 函数</strong>)中对象的属性的判断<code>for ((a, b) in collection) { …… }</code></p>
+</li>
+<li><p>解构声明作为函数返回值存在的情况 (<code>val (param1,param2) = function(....)</code>),<code>function()</code><strong>函数返回对应数据类对象或标准类 <code>Pair&lt;type1,type2&gt;</code></strong></p>
+</li>
+<li><p><strong>解构声明对应数据类对象的参数的个数</strong>,不需要某个参数,可以使用<code>下划线&quot;_&quot;</code>代替</p>
+</li>
+</ol>
+<hr>
+<h3 id="密封类-文件限制和When分支覆盖"><a href="#密封类-文件限制和When分支覆盖" class="headerlink" title="密封类 - 文件限制和When分支覆盖"></a>密封类 - 文件限制和When分支覆盖</h3><p>是一个<strong>值为有限集中的类型、而不能有任何其他类型</strong>,可以有<strong>包含状态的多个实例的子类</strong>,并且 <strong>子类必须和基类位于同一个文件,孙类不做限制（在 Kotlin 1.1 之前， 子类必须嵌套在密封类声明的内部）</strong>,使用<strong><code>sealed</code></strong>关键字的类.</p>
+<pre><code>sealed class Expr
+data class Const(val number: Double) : Expr()
+data class Sum(val e1: Expr, val e2: Expr) : Expr()
+object NotANumber : Expr()
+
+
+//when分支情况
+fun eval(expr: Expr): Double = when(expr) {
+    is Const -&gt; expr.number
+    is Sum -&gt; eval(expr.e1) + eval(expr.e2)
+    NotANumber -&gt; Double.NaN
+    // 不再需要 `else` 子句，因为我们已经覆盖了所有的情况
+}
+</code></pre><p>使用密封类的关键好处在于使用 when 表达式 的时候，如果能够 验证语句覆盖了所有情况，就不需要为该语句再添加一个 else 子句了。</p>
+<hr>
+<h3 id="嵌套类-内部类-匿名内部类"><a href="#嵌套类-内部类-匿名内部类" class="headerlink" title="嵌套类,内部类,匿名内部类"></a>嵌套类,内部类,匿名内部类</h3><ol>
+<li>嵌套类是指嵌套于其他类中的类;</li>
+<li>内部类有 inner 关键字,内部类可以访问外部类成员属性,持有外部类引用;</li>
+<li><p>匿名内部类用于函数参数传入,与java相同,可以使用带接口类型前缀的lambda表达式创建它;</p>
+<pre><code>val listener = ActionListener { println(&quot;clicked&quot;) }
+</code></pre></li>
+</ol>
+<hr>
+<h3 id="枚举类"><a href="#枚举类" class="headerlink" title="枚举类"></a>枚举类</h3><h4 id="枚举类的声明"><a href="#枚举类的声明" class="headerlink" title="枚举类的声明"></a>枚举类的声明</h4><ol>
+<li>使用enum关键字;</li>
+<li>每一个枚举分别是一个当前类的对象,可以有初始化的值使用”()”包围;</li>
+<li><p>当类需要定义其他成员属性或函数,要使用”;”将成员与其他分开;</p>
+<pre><code>enum class Direction {
+    NORTH, SOUTH, WEST, EAST
+}
+
+//构造有参数,枚举有初始值
+enum class Color(val rgb: Int) {
+    RED(0xFF0000),GREEN(0x00FF00),BLUE(0x0000FF)
+}
+
+//自定义成员抽象函数,枚举对象实现函数
+enum class ProtocolState {
+    WAITING {
+        override fun signal() = TALKING
+    },
+
+    TALKING {
+        override fun signal() = WAITING
+    };
+
+    abstract fun signal(): ProtocolState
+}    
+</code></pre></li>
+</ol>
+<h4 id="枚举常量使用"><a href="#枚举常量使用" class="headerlink" title="枚举常量使用"></a>枚举常量使用</h4><ol>
+<li><p>枚举常量可以获得在类声明中名称和属性.</p>
+<pre><code>val name: String
+val ordinal: Int
+</code></pre></li>
+<li><p>枚举常量实现<code>Comparable</code> 接口,自然排序顺序是定义顺序.</p>
+</li>
+<li><p>枚举类有成方法允许列出定义的枚举常量以及通过名称获取枚举常量。</p>
+<pre><code>EnumClass.valueOf(value: String): EnumClass
+EnumClass.values(): Array&lt;EnumClass&gt;
+</code></pre></li>
+<li><p>使用 <code>enumValues&lt;T&gt;()</code> 和 <code>enumValueOf&lt;T&gt;()</code> 函数以泛型的方式访问枚举类中的常量 </p>
+<pre><code>enum class RGB { RED, GREEN, BLUE }
+
+inline fun &lt;reified T : Enum&lt;T&gt;&gt; printAllValues() {
+    print(enumValues&lt;T&gt;().joinToString { it.name })
+}
+
+printAllValues&lt;RGB&gt;() // 输出 RED, GREEN, BLUE
+</code></pre></li>
+</ol>
+<hr>
+<p>本文参考自<a href="https://www.kotlincn.net/docs/reference/" target="_blank" rel="noopener"> Kotlin语言中心站 </a></p>
+
+      
+    </div>
+    
+    
+    
+	<div>
+      
+        
+      
+	</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
+          
+            <a href="/tags/Kotlin/" rel="tag"><i class="fa fa-tag"></i> Kotlin</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/11/Kotlin——1.包,数据类型,普通类,接口/" rel="next" title="Kotlin——1. 包,数据类型,普通类,接口">
+                <i class="fa fa-chevron-left"></i> Kotlin——1. 包,数据类型,普通类,接口
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/11/前端基础 - HTML/" rel="prev" title="前端基础之HTML">
+                前端基础之HTML <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://i.imgur.com/hwLvP2j.jpg"
+                alt="SchafferWang" />
+            
+              <p class="site-author-name" itemprop="name">SchafferWang</p>
+              <p class="site-description motion-element" itemprop="description">我要一步一步往上爬<br>只待阳光静静看着它的脸<br>小小的天有大大的梦想<br>重重的壳裹着轻轻的仰望</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/SchafferWang0818" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5055805571/profile?topnav=1&wvr=6" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/schaffer.me/activities" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="../../../../Preview.html" target="_blank" title="简历">
+                      
+                        <i class="fa fa-fw fa-globe"></i>简历</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.liaojian.top/" title="ios大神_廖坚的性福生活" target="_blank">ios大神_廖坚的性福生活</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.ihoey.com/" title="前端大牛_胡璠的性福生活" target="_blank">前端大牛_胡璠的性福生活</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类的结构"><span class="nav-number">1.</span> <span class="nav-text">类的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的分类"><span class="nav-number">2.</span> <span class="nav-text">类的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类-data-特色-解构声明-amp-copy"><span class="nav-number">2.1.</span> <span class="nav-text">数据类(data)- 特色:解构声明 &amp; copy()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构造"><span class="nav-number">2.1.1.</span> <span class="nav-text">构造</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解构声明-将一个对象属性同时赋值给一组的多个变量"><span class="nav-number">2.1.2.</span> <span class="nav-text">解构声明 - 将一个对象属性同时赋值给一组的多个变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#密封类-文件限制和When分支覆盖"><span class="nav-number">2.2.</span> <span class="nav-text">密封类 - 文件限制和When分支覆盖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌套类-内部类-匿名内部类"><span class="nav-number">2.3.</span> <span class="nav-text">嵌套类,内部类,匿名内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举类"><span class="nav-number">2.4.</span> <span class="nav-text">枚举类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#枚举类的声明"><span class="nav-number">2.4.1.</span> <span class="nav-text">枚举类的声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#枚举常量使用"><span class="nav-number">2.4.2.</span> <span class="nav-text">枚举常量使用</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SchafferWang</span>
+
+  
+</div>
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
